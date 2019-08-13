@@ -1,0 +1,25 @@
+version: '3.0'
+
+services:
+
+ docker-eureka-server:
+  build: ./docker-eureka-server
+  ports:
+   - "8761:8761"
+  tty:
+    true
+  restart:
+    unless-stopped
+
+ docker-fileprocessing-service:
+  build: ./docker-fileprocessing-service
+  ports:
+   - "9009:9009"
+  environment:
+    - REGISTRY_HOST=docker-eureka-server
+  tty:
+    true
+  restart:
+    unless-stopped
+
+ 
